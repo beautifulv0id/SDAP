@@ -6,8 +6,19 @@ Integrate the [SDPA software package](http://sdpa.sourceforge.net/download.html)
 - [x] run and compare results using sdpa executable binary and cvx 
 - [ ] generate the problem in C++ and use sdpa callable library to solve the problem (without using input file)
 
-# Problem
-Errors when trying to compile the `example1.cpp` in `/libexample` of the SDPA package. I put the make ouput into `make_logfile.txt`. 
+# Current Problem
+Before generating my own problem I want to write a CMake file to compile examples in the `/libexample` folder. However, I'm getting lots of linker errors. I put the make ouput into `make_logfile.txt`. 
+
+For reference, this is how they compile the examples using `g++`:
+```
+$ g++ -O3 -I$(HOME)/sdpa -I$(HOME)/lapack/include example1-1.cpp
+$ g++ -O3 -o example1-1.exe example1-1.o -L$(HOME)/sdpa -lsdpa \
+-L$(HOME)/lapack/lib -llapack -lcblaswr -lcblas -lf77blas -lI77 -lF77 -latlas
+$ ./example1-1.exe example1.dat example1.out
+```
+> In the above command, we assume that we have installed ATLAS and LAPACK header file into
+$(HOME)/lapack/include and library file into $(HOME)/lapack/lib, and SDPA into $(HOME)/sdpa.
+
 
 ## What I tried
 It seems like I'm not linking to mumps correctly so so I added `/usr/lib/x86_64-linux-gnu/libdmumps.a` to `target_link_libraries` which is probably not the correct way! However, then I get an error like:
@@ -19,14 +30,6 @@ It seems like I'm not linking to mumps correctly so so I added `/usr/lib/x86_64-
 /usr/bin/ld: (.text+0xb3f): undefined reference to `_gfortran_transfer_character_write'
 ...
 ```
-Which seems like I have to link to fortran too. Here I'm stuck a bit.. 
+Which seems like I have to link to fortran too. 
 
-For reference, this is how they compile the examples using `g++`:
-```
-$ g++ -O3 -I$(HOME)/sdpa -I$(HOME)/lapack/include example1-1.cpp
-$ g++ -O3 -o example1-1.exe example1-1.o -L$(HOME)/sdpa -lsdpa \
--L$(HOME)/lapack/lib -llapack -lcblaswr -lcblas -lf77blas -lI77 -lF77 -latlas
-$ ./example1-1.exe example1.dat example1.out
-```
-> In the above command, we assume that we have installed ATLAS and LAPACK header file into
-$(HOME)/lapack/include and library file into $(HOME)/lapack/lib, and SDPA into $(HOME)/sdpa.
+
