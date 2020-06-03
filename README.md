@@ -7,4 +7,4 @@ Integrate the [SDPA software package](http://sdpa.sourceforge.net/download.html)
 - [ ] generate the problem in C++ and use sdpa callable library to solve the problem (without using input file)
 
 # Problem
-Errors when trying to compile the examples in `/libexample` of the SDPA package. 
+Errors when trying to compile the `example1.cpp` in `/libexample` of the SDPA package. 
