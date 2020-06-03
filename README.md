@@ -9,7 +9,7 @@ Integrate the [SDPA software package](http://sdpa.sourceforge.net/download.html)
 # Problem
 Errors when trying to compile the `example1.cpp` in `/libexample` of the SDPA package. I put the make ouput into `make_logfile.txt`. 
 
-# What I tried
+## What I tried
 It seems like I'm not linking to mumps correctly so so I added `/usr/lib/x86_64-linux-gnu/libdmumps.a` to `target_link_libraries` which is probably not the correct way! However, then I get an error like:
 
 ```
