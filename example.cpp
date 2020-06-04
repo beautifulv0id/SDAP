@@ -19,7 +19,7 @@ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 
 ------------------------------------------------------------- */
 // Here is the start of ``example1.cpp''
-  
+
 #include <cstdio>
 #include <cstdlib>
 #include <sdpa_call.h>
@@ -39,11 +39,11 @@ example1.dat:
 */
 
 void printVector(double* ele, int dim, char* printFormat,
-		 FILE* fpout);
+         FILE* fpout);
 void printMatrix(double* ele, int dim, char* printFormat,
-		 FILE* fpout);
+         FILE* fpout);
 void printDimacsError(double dimacs_error[7],char* printFormat,
-		      FILE* fpout);
+              FILE* fpout);
 
 int main ()
 {
@@ -55,7 +55,7 @@ int main ()
   Problem1.setParameterType(SDPA::PARAMETER_DEFAULT);
 
   // If necessary, each parameter can be set independently
-  
+
   // Problem1.setParameterMaxIteration(100);
   // Problem1.setParameterEpsilonStar(1.0e-7);
   // Problem1.setParameterLambdaStar(1.0e+2);
@@ -70,7 +70,7 @@ int main ()
   // Problem1.setParameterPrintXMat((char*)"%+8.3e" );
   // Problem1.setParameterPrintYMat((char*)"%+8.3e" );
   // Problem1.setParameterPrintInformation((char*)"%+10.16e");
-  
+
   Problem1.printParameters(stdout);
 
   int mDIM   = 3;
@@ -88,12 +88,12 @@ int main ()
 
   Problem1.inputElement(0, 1, 1, 1, -11);
   Problem1.inputElement(0, 1, 2, 2,  23);
-  
+
   Problem1.inputElement(1, 1, 1, 1,  10);
   Problem1.inputElement(1, 1, 1, 2,   4);
-  
+
   Problem1.inputElement(2, 1, 2, 2,  -8);
-  
+
   Problem1.inputElement(3, 1, 1, 2,  -8);
   Problem1.inputElement(3, 1, 2, 2,  -2);
 
@@ -105,61 +105,61 @@ int main ()
   // Problem1.writeInitSparse((char*)"tmp.ini-s",(char*)"%+8.3e");
 
   Problem1.solve();
-	
+
   fprintf(stdout, "\nStop iteration = %d\n",
-	  Problem1.getIteration());
+      Problem1.getIteration());
   char phase_string[30];
   Problem1.getPhaseString(phase_string);
   fprintf(stdout, "Phase          = %s\n", phase_string);
   fprintf(stdout, "objValPrimal   = %+10.6e\n",
-	  Problem1.getPrimalObj());
+      Problem1.getPrimalObj());
   fprintf(stdout, "objValDual     = %+10.6e\n",
-	  Problem1.getDualObj());
+      Problem1.getDualObj());
   fprintf(stdout, "p. feas. error = %+10.6e\n",
-	  Problem1.getPrimalError());
+      Problem1.getPrimalError());
   fprintf(stdout, "d. feas. error = %+10.6e\n\n",
-	  Problem1.getDualError());
+      Problem1.getDualError());
 
-  
+
   fprintf(stdout, "xVec = \n");
   // Problem1.printResultXVec();
   printVector(Problem1.getResultXVec(),
-	      Problem1.getConstraintNumber(), (char*)"%+8.3e",
-	      stdout);
-  
+          Problem1.getConstraintNumber(), (char*)"%+8.3e",
+          stdout);
+
   fprintf(stdout, "xMat = \n");
   // Problem1.printResultXMat();
   for (int l=0; l<Problem1.getBlockNumber(); ++l) {
     if (Problem1.getBlockType(l+1) == SDPA::SDP) {
       printMatrix(Problem1.getResultXMat(l+1),
-		  Problem1.getBlockSize(l+1), (char*)"%+8.3e",
-		  stdout);
+          Problem1.getBlockSize(l+1), (char*)"%+8.3e",
+          stdout);
     }
     else if (Problem1.getBlockType(l+1) == SDPA::SOCP) {
       printf("current version does not support SOCP\n");
     }
     if (Problem1.getBlockType(l+1) == SDPA::LP) {
       printVector(Problem1.getResultXMat(l+1),
-		  Problem1.getBlockSize(l+1), (char*)"%+8.3e",
-		  stdout);
+          Problem1.getBlockSize(l+1), (char*)"%+8.3e",
+          stdout);
     }
   }
-		  
+
   fprintf(stdout, "yMat = \n");
   // Problem1.printResultYMat();
   for (int l=0; l<Problem1.getBlockNumber(); ++l) {
     if (Problem1.getBlockType(l+1) == SDPA::SDP) {
       printMatrix(Problem1.getResultYMat(l+1),
-		  Problem1.getBlockSize(l+1), (char*)"%+8.3e",
-		  stdout);
+          Problem1.getBlockSize(l+1), (char*)"%+8.3e",
+          stdout);
     }
     else if (Problem1.getBlockType(l+1) == SDPA::SOCP) {
       printf("current version does not support SOCP\n");
     }
     if (Problem1.getBlockType(l+1) == SDPA::LP) {
       printVector(Problem1.getResultYMat(l+1),
-		  Problem1.getBlockSize(l+1), (char*)"%+8.3e",
-		  stdout);
+          Problem1.getBlockSize(l+1), (char*)"%+8.3e",
+          stdout);
     }
   }
 
@@ -171,7 +171,7 @@ int main ()
 
   Problem1.terminate();
   exit(0);
-};	
+};
 
 void printVector(double* ele, int dim, char* printFormat, FILE* fpout)
 {
@@ -200,7 +200,7 @@ void printMatrix(double* ele, int dim, char* printFormat, FILE* fpout)
 }
 
 void printDimacsError(double dimacs_error[7],char* printFormat,
-		      FILE* fpout)
+              FILE* fpout)
 {
   fprintf(fpout,  "\n");
   fprintf(fpout,  "* DIMACS_ERRORS * \n");
