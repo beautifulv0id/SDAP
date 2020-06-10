@@ -20,7 +20,7 @@ cd ..
 git clone https://github.com/xianyi/OpenBLAS.git
 cd OpenBLAS
 make BINARY=64 CC=gcc FC=gfortran USE_OPENMP=0 NO_CBLAS=1 NO_WARMUP=1 libs netlib
-cd ..
+cd ../..
 mkdir build && cd build
 cmake .. -DSDPA_ROOT_DIR=../external/
 ```
